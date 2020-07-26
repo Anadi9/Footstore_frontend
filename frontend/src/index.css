@@ -3,3 +3,28 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+.navbar {
+  cursor: pointer;
+  color: chartreuse;
+  background: #000;
+}
+
+.nav {
+  cursor: pointer;
+}
+
+.signup .button {
+  color: black;
+  background: chartreuse;
+  border: black;
+  border-radius: 50px;
+}
+
+.signin .button {
+  color: black;
+  background: chartreuse;
+  border: black;
+  border-radius: 50px;
+}
+
