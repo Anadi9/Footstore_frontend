@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Container, Form, Button } from 'react-bootstrap';
-import { signin, authenticate, isAuthenticated } from '../auth';
+import { signin, authenticate, isAuthenticated } from '../auth/userApi';
 import { Redirect } from 'react-router-dom';
 
 function Signin(props) {
@@ -39,25 +39,28 @@ const clickSubmit = event => {
 };
 
 const showError = () => (
-    <div className="alert alert-danger" style={{ display: error ? '' : 'none' }}>
+    <div className="mt-2 alert alert-danger" style={{ display: error ? '' : 'none' }}>
         {error}
     </div>
 );
 
 const showLoading = () =>
         loading && (
-            <div className="alert alert-info">
+            <div className="mt-2 alert alert-info">
                 <h2>Loading...</h2>
             </div>
         );
 
 const redirectUser = () => {
     if (redirectToReferrer) {
-        if (user && user.role === 1) {
+        if (user && user.isAdmin === true) {
             return <Redirect to="/admin/dashboard" />;
         } else {
             return <Redirect to="/user/dashboard" />;
         }
+    }
+    if (isAuthenticated()) {
+        return <Redirect to="/"/>
     }
     };
 
@@ -66,9 +69,6 @@ const redirectUser = () => {
         <div style={{ textAlign: "center", padding: 20 }}>
            <h1>Sign In</h1>
         </div>
-
-        {showLoading()}
-        {showError()}
 
         <Container style={{ width: '70%', paddingBottom: 50}}>
         <Form>
@@ -97,6 +97,8 @@ const redirectUser = () => {
         </Button>
 
       </Form>
+      {showLoading()}
+        {showError()}
         </Container>
 
         {redirectUser()}

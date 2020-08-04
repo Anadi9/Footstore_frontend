@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { Navbar, Nav } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
-import { signout, isAuthenticated } from '../auth';
+import { signout, isAuthenticated } from '../auth/userApi';
 
 function NavBar(props) {
     return (
@@ -16,10 +16,30 @@ function NavBar(props) {
           <Navbar.Collapse id="basic-navbar-nav">
             
         <Nav className="nav mx-auto">
+
             <Nav.Item 
                 className="mx-2" 
-                onClick={() => props.history.push('/user/dashboard')}>User Dashboard</Nav.Item>
-        </Nav>
+                onClick={() => props.history.push('/')}>Home</Nav.Item>
+
+            <Nav.Item 
+                className="mx-2" 
+                onClick={() => props.history.push('/shop')}>Shop</Nav.Item>
+
+          {isAuthenticated() && isAuthenticated().user.isAdmin === false && (
+            <Nav.Item 
+                className="mx-2" 
+                onClick={() => props.history.push('/user/dashboard')}>Dashboard</Nav.Item>
+          )}
+          
+          {isAuthenticated() && isAuthenticated().user.isAdmin === true && (
+            <Nav.Item 
+                className="mx-2" 
+                onClick={() => props.history.push('/admin/dashboard')}>Dashboard</Nav.Item>
+          )}
+
+
+          </Nav>
+
 
         <Nav className="nav ml-auto mr-5">
 

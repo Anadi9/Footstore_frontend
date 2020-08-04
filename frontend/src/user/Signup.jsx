@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Container, Form, Button } from 'react-bootstrap';
-import { signup } from '../auth';
+import { signup } from '../auth/userApi';
 
 function Signup(props) {
 
@@ -39,13 +39,13 @@ function Signup(props) {
     };
 
     const showError = () => (
-        <div className="alert alert-danger" style={{ display: error ? '' : 'none' }}>
+        <div className="mt-2 alert alert-danger" style={{ display: error ? '' : 'none' }}>
             {error}
         </div>
     );
 
     const showSuccess = () => (
-        <div className="alert alert-info" style={{ display: success ? '' : 'none' }}>
+        <div className="mt-2 alert alert-info" style={{ display: success ? '' : 'none' }}>
             New account is created. Please <Link to="/Signin">Sign In</Link>
         </div>
     );
@@ -55,9 +55,6 @@ function Signup(props) {
         <div style={{ textAlign: "center", padding: 20 }}>
            <h1>Sign Up</h1>
         </div>
-
-        {showSuccess()}
-        {showError()}
 
         <Container style={{ width: '70%', paddingBottom: 50}}>
         <Form>
@@ -98,6 +95,8 @@ function Signup(props) {
           Sign Up
         </Button>
       </Form>
+      {showSuccess()}
+        {showError()}
         </Container>
 
     </div>
