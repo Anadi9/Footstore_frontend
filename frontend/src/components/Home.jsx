@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Container, Row } from 'react-bootstrap';
 import { getProducts } from './componentApi';
 import ProductCard from './ProductCard';
+import SearchBar from './SearchBar';
 
 function Home(props) {
 
@@ -35,9 +36,12 @@ function Home(props) {
     }, [])
 
     return (
-        <Container fluid className="my-5 py-1">
+        <Container fluid className="my-5 py-1 text-center">
+          <div className="mt-3">
+            <SearchBar/>
+          </div>
 
-          <Container className="my-5">
+          <Container fluid className="my-4">
            <h3 className="text-center">New Arrivals</h3>
            <Row className="justify-content-center">
              {productsByArrival.map((product, i) => (
@@ -46,7 +50,7 @@ function Home(props) {
            </Row>
            </Container>
            
-          <Container className="my-5">
+          <Container fluid className="my-4">
            <h3 className="text-center">Best Sellers</h3>
            <Row className="justify-content-center">
              {productsBySell.map((product, i) => (

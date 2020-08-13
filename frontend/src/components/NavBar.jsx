@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import { Navbar, Nav } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
 import { signout, isAuthenticated } from '../auth/userApi';
+import { itemTotal } from './cartHelpers';
 
 function NavBar(props) {
     return (
@@ -19,11 +20,23 @@ function NavBar(props) {
 
             <Nav.Item 
                 className="mx-2" 
-                onClick={() => props.history.push('/')}>Home</Nav.Item>
+                onClick={() => props.history.push('/')}>
+                  Home
+            </Nav.Item>
 
             <Nav.Item 
                 className="mx-2" 
-                onClick={() => props.history.push('/shop')}>Shop</Nav.Item>
+                onClick={() => props.history.push('/shop')}>
+                  Shop
+            </Nav.Item>
+
+            <Nav.Item 
+                className="mx-2" 
+                onClick={() => props.history.push('/cart')}>
+                  Cart <sup>
+                        <small className="cart-badge">{itemTotal()}</small>
+                      </sup>
+            </Nav.Item>
 
           {isAuthenticated() && isAuthenticated().user.isAdmin === false && (
             <Nav.Item 
@@ -32,9 +45,15 @@ function NavBar(props) {
           )}
           
           {isAuthenticated() && isAuthenticated().user.isAdmin === true && (
-            <Nav.Item 
+            <Fragment>
+              <Nav.Item 
                 className="mx-2" 
-                onClick={() => props.history.push('/admin/dashboard')}>Dashboard</Nav.Item>
+                onClick={() => props.history.push('/admin/dashboard')}>Admin Dashboard</Nav.Item>
+
+              <Nav.Item 
+                className="mx-2" 
+                onClick={() => props.history.push('/user/dashboard')}>Dashboard</Nav.Item>
+            </Fragment>
           )}
 
 

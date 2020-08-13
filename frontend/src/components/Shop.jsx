@@ -102,13 +102,14 @@ function Shop(props) {
 
 
     return (
-        <Container fluid className="my-5 py-1">
+        <Container fluid className="my-5 py-1 text-center">
+        
             <h3 className="my-3 text-center">Get your Dream Boot</h3>
             
             <Row className="mx-3 my-4">
             
               <Col lg={2}>
-                <div className="mb-3">
+                <div className="mb-3 text-left">
                    <h6>Filter by category</h6>
                 <Checkbox 
                    categories={categories}
@@ -117,7 +118,7 @@ function Shop(props) {
                    />
                 </div>
 
-                <div className="mb-3">
+                <div className="mb-3 text-left">
                    <h6>Filter by price range</h6>
                 <RadioBox 
                    prices={prices}

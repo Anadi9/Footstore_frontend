@@ -14,17 +14,14 @@
   cursor: pointer;
 }
 
-.signup .button {
+.signup .button,
+.signin .button,
+.profile .button {
   color: black;
   background: chartreuse;
   border: black;
   border-radius: 50px;
 }
 
-.signin .button {
-  color: black;
-  background: chartreuse;
-  border: black;
-  border-radius: 50px;
-}
+
 

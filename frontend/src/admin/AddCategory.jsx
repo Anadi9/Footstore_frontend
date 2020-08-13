@@ -47,15 +47,17 @@ function AddCategory(props) {
     const goBack = () => (
         <div className="my-5">
               <Link to="/admin/dashboard" className="h5 text-success">
-                 <Badge variant="warning">Back to dashboard</Badge>
+                 <Badge variant="info">Back to dashboard</Badge>
               </Link>
             </div>
     );
 
     return (
         <div className="my-5 pt-5 mx-auto w-75">
-          <Container>
-            <h3>Add Category</h3>
+          
+            <h3 className="text-center">Add Category</h3>
+
+            <Container className="my-4">
 
             <Form onSubmit={clickSubmit}>
 

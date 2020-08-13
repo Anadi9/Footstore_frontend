@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { isAuthenticated } from '../auth/userApi';
 import { Button, Container, Form, Badge } from 'react-bootstrap';
-import { addProduct, getCategories } from './adminApi';
+import { getCategories, updateProduct, getProduct } from './adminApi';
 import { Link } from 'react-router-dom';
 
-function AddProduct(props) {
+function UpdateProduct({match}) {
+
     const [values, setValues] = useState({
         name: '',
         description: '',
@@ -14,59 +15,82 @@ function AddProduct(props) {
         quantity: '',
         photo: '',
         loading: false,
-        error: '',
+        error: false,
         createdProduct: '',
-        redirectToProfile: '',
+        redirectToProfile: false,
         formData: ''
     });
+
+    const [categories, setCategories] = useState([]);
+
+    const { user, token } = isAuthenticated();
 
     const {
         name,
         description,
         price,
-        categories,
+        // categories,
         category,
         quantity,
         loading,
         error,
         createdProduct,
         redirectToProfile,
-        formData 
+        formData
     } = values;
-    
-
-    const {user, token} = isAuthenticated();
 
 
-    const init = () => {
+    const init = productId => {
+        getProduct(productId).then(data => {
+            if (data.error) {
+                setValues({ ...values, error: data.error });
+            } else {
+                // populate the state
+                setValues({
+                    ...values,
+                    name: data.name,
+                    description: data.description,
+                    price: data.price,
+                    category: data.category._id,
+                    shipping: data.shipping,
+                    quantity: data.quantity,
+                    formData: new FormData()
+                });
+                // load categories
+                initCategories();
+            }
+        });
+    };
+
+    // load categories and set form data
+    const initCategories = () => {
         getCategories().then(data => {
-            if(data.error){
-                setValues({...values, error: data.error})
-            } else (
-                setValues({...values, categories: data, formData: new FormData()})
-            )
-        })
-    }
+            if (data.error) {
+                setValues({ ...values, error: data.error });
+            } else {
+                setCategories(data);
+            }
+        });
+    };
 
     useEffect(() => {
-        init();
-    }, [])
+        init(match.params.productId);
+    }, []);
 
 
     const handleChange = name => event => {
-        const value = name === 'photo'? event.target.files[0] : event.target.value
-        formData.set(name, value)
-        setValues({...values, [name]: value})
-    }
+        const value = name === 'photo' ? event.target.files[0] : event.target.value;
+        formData.set(name, value);
+        setValues({ ...values, [name]: value });
+    };
 
-    const clickSubmit = (e) => {
-        e.preventDefault();
-        setValues({...values, error: '', loading: true });
+    const clickSubmit = event => {
+        event.preventDefault();
+        setValues({ ...values, error: '', loading: true });
 
-        addProduct(user._id, token, formData)
-        .then(data => {
-            if(data.error) {
-                setValues({...values, error: data.error})
+        updateProduct(match.params.productId, user._id, token, formData).then(data => {
+            if (data.error) {
+                setValues({ ...values, error: data.error });
             } else {
                 setValues({
                     ...values,
@@ -76,10 +100,12 @@ function AddProduct(props) {
                     price: '',
                     quantity: '',
                     loading: false,
+                    error: false,
+                    redirectToProfile: true,
                     createdProduct: data.name
-                })
+                });
             }
-        })
+        });
     };
 
 
@@ -91,25 +117,33 @@ function AddProduct(props) {
 
     const showSuccess = () => (
         <div className="mt-3 alert alert-info" style={{display: createdProduct ? '' : 'none'}}>
-          <h2>{`${createdProduct}`} is created.</h2>
+          <h2>{`${createdProduct}`} is updated!</h2>
         </div>
     );
+
+    const showLoading = () =>
+        loading && (
+            <div className="alert alert-success">
+                <h2>Loading...</h2>
+            </div>
+        );
+
     
 
     const goBack = () => (
         <div className="my-5">
-              <Link to="/admin/dashboard" className="h5 text-success">
-                 <Badge variant="info">Back to dashboard</Badge>
+              <Link to="/admin/products" className="h5 text-success">
+                 <Badge variant="info">Back to Manage Products</Badge>
               </Link>
             </div>
     );
 
     return (
-        <div className="my-5 pt-5 mx-auto w-75">
-        
-        <h3 className="text-center">Add Product</h3>
+        <div className="my-5 pt-4 mx-auto w-75">
 
-        <Container className="my-4">    
+        <h3 className="text-center">Update Product</h3>
+
+          <Container className="my-4">
 
             <Form onSubmit={clickSubmit}>
 
@@ -120,8 +154,9 @@ function AddProduct(props) {
                   autoFocus
                   onChange={handleChange('photo')} 
                   type="file" 
+                  name="photo"
                   accept="image/*"
-                  name="photo" />
+                   />
                   
               </Form.Group>
 
@@ -132,7 +167,7 @@ function AddProduct(props) {
                   onChange={handleChange('name')} 
                   value={name} 
                   type="text" 
-                  placeholder="Enter product name" />
+                   />
               </Form.Group>
 
               <Form.Group controlId="exampleForm.ControlTextarea1">
@@ -142,7 +177,7 @@ function AddProduct(props) {
                   onChange={handleChange('description')} 
                   value={description} 
                   type="text" 
-                  placeholder="Enter product description" />
+                   />
               </Form.Group>
 
               <Form.Group controlId="formBasicPrice">
@@ -152,7 +187,7 @@ function AddProduct(props) {
                   onChange={handleChange('price')} 
                   value={price} 
                   type="number" 
-                  placeholder="Enter product price" />
+                  />
               </Form.Group>
 
               <Form.Group controlId="formBasicCategory">
@@ -178,15 +213,16 @@ function AddProduct(props) {
                   onChange={handleChange('quantity')} 
                   value={quantity} 
                   type="number" 
-                  placeholder="Enter product quantity" />
+                  />
             </Form.Group>
 
               <Button className='button btn-success' type="submit">
-                 Add
+                 Save Changes
               </Button>
 
             </Form>
 
+            {showLoading()}
             {showError()}
             {showSuccess()}
             {goBack()}
@@ -196,4 +232,4 @@ function AddProduct(props) {
     );
 }
 
-export default AddProduct;
+export default UpdateProduct;

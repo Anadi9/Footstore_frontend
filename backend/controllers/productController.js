@@ -5,7 +5,9 @@ const Product = require('../models/productModel');
 const { errorHandler } = require('../helpers/dbErrorHandlers');
 
 exports.productById = (req, res, next, id) => {
-    Product.findById(id).exec((err, product) => {
+    Product.findById(id)
+    .populate('category')
+    .exec((err, product) => {
         if(err || !product) {
             return res.status(400).json({
                 error: 'Product not found'
@@ -96,26 +98,6 @@ exports.update = (req, res) => {
         if(err) {
             return res.status(400).json({
                 error: 'Image could not be uploaded.'
-            });
-        }
-        //check for all fields
-        const { name,
-             description, 
-             price, 
-             category, 
-             quantity, 
-             shipping 
-            } = fields;
-
-        if(!name || 
-           !description || 
-           !price || 
-           !category || 
-           !quantity || 
-           !shipping ) 
-           {
-            return res.status(400).json({
-                error: 'All fields are required.'
             });
         }
         let product = req.product;
@@ -266,4 +248,48 @@ exports.photo = (req, res, next) => {
         return res.send(req.product.photo.data);
     }
     next();
+};
+
+exports.listSearch = (req, res) => {
+    // create query object to hold search value and category value
+    const query = {};
+    // assign search value to query.name
+    if (req.query.search) {
+        query.name = { $regex: req.query.search, $options: 'i' };
+        // assigne category value to query.category
+        if (req.query.category && req.query.category != 'All') {
+            query.category = req.query.category;
+        }
+        // find the product based on query object with 2 properties
+        // search and category
+        Product.find(query, (err, products) => {
+            if (err) {
+                return res.status(400).json({
+                    error: errorHandler(err)
+                });
+            }
+            res.json(products);
+        }).select('-photo');
+    }
+};
+
+
+exports.decreaseQuantity = (req, res, next) => {
+    let bulkOps = req.body.order.products.map(item => {
+        return {
+            updateOne: {
+                filter: { _id: item._id },
+                update: { $inc: { quantity: -item.count, sold: +item.count } }
+            }
+        };
+    });
+
+    Product.bulkWrite(bulkOps, {}, (error, products) => {
+        if (error) {
+            return res.status(400).json({
+                error: 'Could not update product'
+            });
+        }
+        next();
+    });
 };
