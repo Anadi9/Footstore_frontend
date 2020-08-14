@@ -48,7 +48,7 @@ function Cart(props) {
 
 
     return (
-        <Container fluid className="my-5 py-4 text-center">
+        <Container fluid className="cart my-5 py-4 text-center">
 
             <h3>Shopping Cart</h3>
 

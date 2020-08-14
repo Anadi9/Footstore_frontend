@@ -4,10 +4,14 @@
   box-sizing: border-box;
 }
 
+.App {
+  background-color: rgb(245, 245, 245);
+}
+
 .navbar {
   cursor: pointer;
   color: chartreuse;
-  background: #000;
+  background: darkcyan;
 }
 
 .nav {
@@ -23,5 +27,9 @@
   border-radius: 50px;
 }
 
+.footer {
+  color: white;
+  background-color: black;
+}
 
 

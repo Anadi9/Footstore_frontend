@@ -17,12 +17,14 @@ import Orders from './admin/Orders';
 import Profile from './user/Profile';
 import ManageProducts from './admin/ManageProducts';
 import UpdateProduct from './admin/UpdateProduct';
+import Footer from './components/Footer';
 
 
 
 const App = () => {
   return (
       <BrowserRouter>
+      <div className="App">
         <NavBar/>
           <Switch>
           <Route path="/" exact component={Home} />
@@ -39,8 +41,9 @@ const App = () => {
           <AdminRoute path="/admin/products" component={ManageProducts}/>
           <AdminRoute path="/admin/product/update/:productId" component={UpdateProduct}/>
           <PrivateRoute path="/profile/:userId" component={Profile}/>
-          
           </Switch>
+          <Footer/>
+          </div>
       </BrowserRouter>
   );
 };

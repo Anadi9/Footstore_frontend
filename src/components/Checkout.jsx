@@ -6,7 +6,7 @@ import DropIn from 'braintree-web-drop-in-react';
 import { emptyCart } from './cartHelpers';
 import { Form } from 'react-bootstrap';
 
-function Checkout({products}) {
+function Checkout({ products, setRun = f => f, run = undefined }) {
 
     const [data, setData] = useState({
         loading: false,
@@ -97,7 +97,7 @@ function Checkout({products}) {
                         createOrder(userId, token, createOrderData)
                           .then(response => {
                             emptyCart(() => {
-                             // setRun(!run); // run useEffect in parent Cart
+                             setRun(!run); // run useEffect in parent Cart
                              console.log('payment success and empty cart');
                               setData({
                                     loading: false,

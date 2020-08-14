@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Row, Col, ListGroup, ListGroupItem, Badge } from 'react-bootstrap';
+import { Container, Row, Col, ListGroup, ListGroupItem, Badge, Button } from 'react-bootstrap';
 import { isAuthenticated } from './../auth/userApi';
 import { getProducts, deleteProduct } from './adminApi';
 import { Link } from 'react-router-dom';
@@ -52,6 +52,11 @@ function ManageProducts(props) {
                                 <strong>{p.name}</strong>
                                
                                 <div>
+
+                                <Link to={`/product/${p._id}`}>
+                                    <span className="mx-1"><Badge variant="info">View</Badge></span>
+                                </Link>
+
                                 <Link to={`/admin/product/update/${p._id}`}>
                                     <span className="mx-1"><Badge variant="warning">Update</Badge></span>
                                 </Link>
