@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row } from 'react-bootstrap';
 import { getProducts } from './componentApi';
+import Footer from './Footer';
 import ProductCard from './ProductCard';
 import SearchBar from './SearchBar';
 
@@ -36,7 +37,8 @@ function Home(props) {
     }, [])
 
     return (
-        <Container fluid className="my-5 py-1 text-center">
+        <>
+            <Container fluid className="my-5 py-1 text-center">
           <div className="mt-3">
             <SearchBar/>
           </div>
@@ -57,9 +59,10 @@ function Home(props) {
              <ProductCard key={i} product={product}/>
               ))}
            </Row>
-           </Container> 
-
+            </Container>
         </Container>
+            <Footer/>
+        </>
     );
 }
 

@@ -4,6 +4,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 import ProductCard from './ProductCard';
 import { Link } from 'react-router-dom';
 import Checkout from './Checkout';
+import Footer from './Footer';
 
 function Cart(props) {
 
@@ -48,7 +49,8 @@ function Cart(props) {
 
 
     return (
-        <Container fluid className="cart my-5 py-4 text-center">
+        <>
+            <Container fluid className="cart my-5 py-4 text-center">
 
             <h3>Shopping Cart</h3>
 
@@ -70,6 +72,8 @@ function Cart(props) {
             </Row>
             
         </Container>
+        <Footer/>
+        </>
     );
 }
 

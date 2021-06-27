@@ -5,6 +5,7 @@ import Checkbox from './CheckBox';
 import RadioBox from './RadioBox';
 import { prices } from './fixedPrices';
 import ProductCard from './ProductCard';
+import Footer from './Footer';
 
 function Shop(props) {
 
@@ -102,7 +103,8 @@ function Shop(props) {
 
 
     return (
-        <Container fluid className="my-5 py-1 text-center">
+        <>
+            <Container fluid className="my-5 py-1 text-center">
         
             <h3 className="my-3 text-center">Get your Dream Boot</h3>
             
@@ -139,6 +141,8 @@ function Shop(props) {
 
             </Row>
         </Container>
+            <Footer/>
+        </>
     );
 }
 

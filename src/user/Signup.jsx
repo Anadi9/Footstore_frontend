@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Container, Form, Button } from 'react-bootstrap';
 import { signup } from '../auth/userApi';
+import Footer from '../components/Footer';
 
 function Signup(props) {
 
@@ -51,6 +52,7 @@ function Signup(props) {
     );
 
     return (
+      <>
         <div className='signup pt-5'>
         <div style={{ textAlign: "center", padding: 20 }}>
            <h1>Sign Up</h1>
@@ -99,7 +101,9 @@ function Signup(props) {
         {showError()}
         </Container>
 
-    </div>
+        </div>
+        <Footer/>
+        </>
     );
 }
 

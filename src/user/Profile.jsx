@@ -3,6 +3,7 @@ import { isAuthenticated } from './../auth/userApi';
 import { read, update, updateUser } from './userApi';
 import { Container, Form, Button } from 'react-bootstrap';
 import { Redirect } from 'react-router-dom';
+import Footer from '../components/Footer';
 
 function Profile({match}) {
 
@@ -58,7 +59,8 @@ function Profile({match}) {
 
 
     return (
-        <div className="profile my-5 pt-4 mx-auto">
+        <>
+            <div className="profile my-5 pt-4 mx-auto">
             
            <h1 className="text-center">Profile</h1>
            
@@ -104,7 +106,9 @@ function Profile({match}) {
 
         {redirectUser(success)}
         
-        </div>
+            </div>
+            <Footer/>
+        </>
     );
 }
 

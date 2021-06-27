@@ -42,7 +42,7 @@ const App = () => {
           <AdminRoute path="/admin/product/update/:productId" component={UpdateProduct}/>
           <PrivateRoute path="/profile/:userId" component={Profile}/>
           </Switch>
-          <Footer/>
+          {/* <Footer/> */}
           </div>
       </BrowserRouter>
   );

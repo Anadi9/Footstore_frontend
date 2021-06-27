@@ -2,10 +2,12 @@ import React from 'react';
 import { Card, ListGroup, Container, Badge, Row, Col } from 'react-bootstrap';
 import { isAuthenticated } from '../auth/userApi';
 import { Link } from 'react-router-dom';
+import Footer from '../components/Footer';
 
 function AdminDashboard(props) {
     const {user: { name, email, isAdmin }} = isAuthenticated();
     return (
+      <>
         <Container fluid className="my-5 py-4">
 
             <h1 className="text-center">Admin Dashboard</h1>
@@ -44,6 +46,8 @@ function AdminDashboard(props) {
 
             
         </Container>
+        <Footer/>
+        </>
     );
 }
 

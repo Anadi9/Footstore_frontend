@@ -3,6 +3,7 @@ import { listOrders, getStatusValues, updateOrderStatus } from './adminApi';
 import { isAuthenticated } from './../auth/userApi';
 import { Container, Row, Col } from 'react-bootstrap';
 import moment from 'moment';
+import Footer from '../components/Footer';
 
 
 function Orders(props) {
@@ -94,7 +95,8 @@ function Orders(props) {
 
 
     return (
-        <div className="my-5 pt-4 mx-auto">
+        <>
+            <div className="my-5 pt-4 mx-auto">
 
         <h1 className="text-center">View Orders</h1>
 
@@ -171,7 +173,9 @@ function Orders(props) {
 
         </Container>
 
-        </div>
+            </div>
+            <Footer/>
+        </>
     );
 }
 

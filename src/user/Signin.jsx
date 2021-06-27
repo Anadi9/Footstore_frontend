@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Container, Form, Button } from 'react-bootstrap';
 import { signin, authenticate, isAuthenticated } from '../auth/userApi';
 import { Redirect } from 'react-router-dom';
+import Footer from '../components/Footer';
 
 function Signin(props) {
 
@@ -65,7 +66,8 @@ const redirectUser = () => {
     };
 
     return (
-        <div className='signin pt-5'>
+        <>
+            <div className='signin pt-5'>
         <div style={{ textAlign: "center", padding: 20 }}>
            <h1>Sign In</h1>
         </div>
@@ -102,7 +104,9 @@ const redirectUser = () => {
         </Container>
 
         {redirectUser()}
-    </div>
+            </div>
+            <Footer/>
+        </>
     );
 }
 

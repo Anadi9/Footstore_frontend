@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, Button } from 'react-bootstrap';
 import ProductImg from './ProductImg';
 import { Link } from 'react-router-dom';
@@ -45,7 +45,7 @@ function ProductCard({product,
             </div>
           )
         );
-      };
+  };
 
 
       const showRemoveButton = showRemoveProductButton => {
@@ -56,6 +56,7 @@ function ProductCard({product,
               onClick={() => {
                 removeItem(product._id);
                 setRun(!run); // run useEffect in parent Cart
+                window.location.reload();
               }}
             >
               Remove Product
@@ -66,34 +67,34 @@ function ProductCard({product,
 
                         
 
-    return (
+  return (
     
-        <Card className="mx-3 my-3" style={{ width: '18rem' }}>
+    <Card className="mx-3 my-3" style={{ width: '18rem' }}>
 
-        <Card.Body>
+      <Card.Body>
 
-        <ProductImg item={product} url="products"/>
+        <ProductImg item={product} url="products" />
 
-          <Card.Title>{product.name}</Card.Title>
+        <Card.Title>{product.name}</Card.Title>
 
-          <Card.Text>
-            Rs.{product.price}
-          </Card.Text>
+        <Card.Text>
+          Rs.{product.price}
+        </Card.Text>
 
-          <p>{showStock(product.quantity)}</p>
+        <p>{showStock(product.quantity)}</p>
 
-          <Link to={`/product/${product._id}`}>
-            <Button size="sm" variant="light" className="btn-outline-success">View</Button>
-          </Link>
+        <Link to={`/product/${product._id}`}>
+          <Button size="sm" variant="light" className="btn-outline-success">View</Button>
+        </Link>
 
-          {showRemoveButton(showRemoveProductButton)}
+        {showRemoveButton(showRemoveProductButton)}
 
-          {showCartUpdateOptions(cartUpdate)}
+        {showCartUpdateOptions(cartUpdate)}
           
-        </Card.Body>
-      </Card>
+      </Card.Body>
+    </Card>
         
-    );
+  );
 }
 
 export default ProductCard;

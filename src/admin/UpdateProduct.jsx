@@ -3,6 +3,7 @@ import { isAuthenticated } from '../auth/userApi';
 import { Button, Container, Form, Badge } from 'react-bootstrap';
 import { getCategories, updateProduct, getProduct } from './adminApi';
 import { Link } from 'react-router-dom';
+import Footer from '../components/Footer';
 
 function UpdateProduct({match}) {
 
@@ -139,7 +140,8 @@ function UpdateProduct({match}) {
     );
 
     return (
-        <div className="my-5 pt-4 mx-auto w-75">
+        <>
+            <div className="my-5 pt-4 mx-auto w-75">
 
         <h3 className="text-center">Update Product</h3>
 
@@ -228,7 +230,9 @@ function UpdateProduct({match}) {
             {goBack()}
 
         </Container>
-        </div>
+            </div>
+            <Footer/>
+        </>
     );
 }
 

@@ -3,6 +3,7 @@ import { Container, Row, Col, ListGroup, ListGroupItem, Badge, Button } from 're
 import { isAuthenticated } from './../auth/userApi';
 import { getProducts, deleteProduct } from './adminApi';
 import { Link } from 'react-router-dom';
+import Footer from '../components/Footer';
 
 function ManageProducts(props) {
 
@@ -36,7 +37,8 @@ function ManageProducts(props) {
 
 
     return (
-        <Container fluid className="my-5 py-4 text-center">
+        <>
+            <Container fluid className="my-5 py-4 text-center">
            <h1 className="text-center">Manage Products</h1>
 
            <Container>
@@ -71,7 +73,9 @@ function ManageProducts(props) {
               </Row>
            </Container>
 
-          </Container>
+            </Container>
+            <Footer/>
+        </>
     );
 }
 

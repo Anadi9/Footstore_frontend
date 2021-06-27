@@ -3,6 +3,7 @@ import { isAuthenticated } from '../auth/userApi';
 import { Button, Container, Form, Badge } from 'react-bootstrap';
 import { addProduct, getCategories } from './adminApi';
 import { Link } from 'react-router-dom';
+import Footer from '../components/Footer';
 
 function AddProduct(props) {
     const [values, setValues] = useState({
@@ -105,7 +106,8 @@ function AddProduct(props) {
     );
 
     return (
-        <div className="my-5 pt-5 mx-auto w-75">
+        <>
+            <div className="my-5 pt-5 mx-auto w-75">
         
         <h3 className="text-center">Add Product</h3>
 
@@ -192,7 +194,9 @@ function AddProduct(props) {
             {goBack()}
 
         </Container>
-        </div>
+            </div>
+            <Footer/>
+        </>
     );
 }
 

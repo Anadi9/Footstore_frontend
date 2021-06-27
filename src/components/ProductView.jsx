@@ -5,6 +5,7 @@ import ProductImg from './ProductImg';
 import ProductCard from './ProductCard';
 import { addItem } from './cartHelpers';
 import { Redirect } from 'react-router-dom';
+import Footer from './Footer';
 
 function ProductView(props) {
 
@@ -57,7 +58,8 @@ function ProductView(props) {
 
 
     return (
-        <Container className="my-5 py-4">
+        <>
+            <Container className="my-5 py-4">
 
           <Row>
 
@@ -91,9 +93,10 @@ function ProductView(props) {
               ))}
            </Row>
 
-           </Container>
-
+            </Container>
         </Container>
+            <Footer/>
+        </>
     );
 }
 

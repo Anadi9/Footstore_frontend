@@ -3,6 +3,7 @@ import { isAuthenticated } from '../auth/userApi';
 import { Button, Container, Form, Badge } from 'react-bootstrap';
 import { addCategory } from './adminApi';
 import { Link } from 'react-router-dom';
+import Footer from '../components/Footer';
 
 function AddCategory(props) {
     const [name, setName] = useState();
@@ -53,7 +54,8 @@ function AddCategory(props) {
     );
 
     return (
-        <div className="my-5 pt-5 mx-auto w-75">
+        <>
+            <div className="my-5 pt-5 mx-auto w-75">
           
             <h3 className="text-center">Add Category</h3>
 
@@ -82,7 +84,9 @@ function AddCategory(props) {
             {goBack()}
 
         </Container>
-        </div>
+            </div>
+            <Footer/>
+        </>
     );
 }
 
